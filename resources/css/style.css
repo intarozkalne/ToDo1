@@ -94,13 +94,18 @@ body{
     padding-left:5px;
     left:15px;
     top:10px;
-    color: #29264A;
+    /* color: #29264A; */
 }
 .item i.co:hover{
     cursor: pointer;
 }
-.fa-check-circle-o{
-    color:#29264A;
+
+.fa-circle-thin{
+    color: #29264A;
+}
+
+.fa-check-circle{
+    color:#097a2f;
 }
 .item p.text{
     position: absolute;

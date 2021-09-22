@@ -5,7 +5,7 @@ const list = document.querySelector("#list");
 const input = document.querySelector("#input");
 
 //Classes names
-const CHECK = "fa-check-circle-o";
+const CHECK = "fa-check-circle";
 const UNCHECK = "fa-circle-thin";
 const LINE_THROUGH = "lineThrough";
 

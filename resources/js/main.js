@@ -86,7 +86,8 @@ function addToDo(toDo, id, done, trash){
 //add an item to the list user enter key
 document.addEventListener("keyup",function(event){
     if(event.keyCode == 13){
-        const toDo = input.value;
+        addToDoElement();
+      /*  const toDo = input.value;
         
 //if the input is not empty
         if(toDo){
@@ -105,8 +106,12 @@ document.addEventListener("keyup",function(event){
             id++;
 
         }
-        input.value = "";
+        input.value = ""; */
     }
+});
+
+document.getElementById("add").addEventListener("click",function(event){
+    addToDoElement();
 });
 
 //addToDo("Coffe", 1, false, false);
@@ -126,6 +131,30 @@ function removeToDo(element){
     element.parentNode.parentNode.removeChild(element.parentNode);
 
     LIST[element.id].trash = true;
+}
+
+//add to do element
+function addToDoElement(){
+    const toDo = input.value;
+        
+    //if the input is not empty
+            if(toDo){
+                addToDo(toDo, id, false, false);
+    
+                LIST.push({
+                    name:toDo,
+                    id:id,
+                    done:false,
+                    trash:false
+                });
+    
+                //add item to localstorage(this code must be added where the LIST array is apdated)
+                localStorage.setItem("ToDo", JSON.stringify(LIST));
+    
+                id++;
+    
+            }
+            input.value = "";
 }
 
 //target the items created dynamicaly

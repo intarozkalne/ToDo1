@@ -74,40 +74,47 @@ function addToDo(toDo, id, done, trash){
     const item = `
                 <li class="item">
                     <i class="co fa ${DONE}" job="complete" id="${id}"></i>
-                    <p class="text ${LINE}">${toDo}</p>
+                    <p class="text ${LINE}" contenteditable="true" id="${id}">${toDo}</p>
                     <i class="de fa fa-close" job="delete" id="${id}"></i>
                 </li>
                 `;
 
     list.insertAdjacentHTML(position, item);
 }
+function addToDoList(){
+    const toDo = input.value;
+        
+    //if the input is not empty
+            if(toDo){
+                addToDo(toDo, id, false, false);
+    
+                LIST.push({
+                    name:toDo,
+                    id:id,
+                    done:false,
+                    trash:false
+                });
+    
+    //add item to localstorage(this code must be added where the LIST array is apdated)
+                localStorage.setItem("ToDo", JSON.stringify(LIST));
+    
+                id++;
+    
+            }
+            input.value = "";
+}
 
 
 //add an item to the list user enter key
 document.addEventListener("keyup",function(event){
     if(event.keyCode == 13){
-        const toDo = input.value;
-        
-//if the input is not empty
-        if(toDo){
-            addToDo(toDo, id, false, false);
-
-            LIST.push({
-                name:toDo,
-                id:id,
-                done:false,
-                trash:false
-            });
-
-//add item to localstorage(this code must be added where the LIST array is apdated)
-            localStorage.setItem("ToDo", JSON.stringify(LIST));
-
-            id++;
-
-        }
-        input.value = "";
+        addToDoList();
     }
 });
+
+document.getElementById("add").addEventListener("click", function(){
+    addToDoList();
+})
 
 //addToDo("Coffe", 1, false, false);
 
@@ -141,6 +148,15 @@ list.addEventListener("click", function(event){
     //add item to localstorage(this code must be added where the LIST array is apdated)
     localStorage.setItem("ToDo", JSON.stringify(LIST));
 });
+
+list.addEventListener("focusout",function(event){
+    const element = event.target;
+   // console.log(element);
+    LIST[element.id].name = element.innerHTML;
+    //console.log(localStorage);
+    localStorage.setItem("ToDo", JSON.stringify(LIST));
+   // console.log(localStorage);
+}); 
 
 const tasksCounts = document.querySelector("#tasksCount");
 tasksCounts.innerHTML = `You have ${LIST.length} tasks`
